@@ -7,6 +7,9 @@ setuptools.setup(
     description="An ecommerce library for python",
     long_description="An ecommerce library for python",
     packages=setuptools.find_packages(),
+    package_data={
+        'ecommerce': ['alembic.ini', 'migrations/*', 'migrations/**/*'],
+    },
     classifiers=[
         "Programming Language :: Python :: 2.7",
         "License :: OSI Approved :: MIT License",
