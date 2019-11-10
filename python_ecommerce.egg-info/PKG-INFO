@@ -1,0 +1,13 @@
+Metadata-Version: 1.1
+Name: python-ecommerce
+Version: 0.1
+Summary: An ecommerce library for python
+Home-page: UNKNOWN
+Author: Simple Ideas Technology Limited
+Author-email: UNKNOWN
+License: UNKNOWN
+Description: An ecommerce library for python
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 2.7
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent

@@ -1,0 +1,8 @@
+setup.py
+ecommerce/__init__.py
+ecommerce/ecommerce.py
+python_ecommerce.egg-info/PKG-INFO
+python_ecommerce.egg-info/SOURCES.txt
+python_ecommerce.egg-info/dependency_links.txt
+python_ecommerce.egg-info/requires.txt
+python_ecommerce.egg-info/top_level.txt
