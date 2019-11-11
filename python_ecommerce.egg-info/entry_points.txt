@@ -1,0 +1,3 @@
+[console_scripts]
+ecommerce = ecommerce.ecommerce:main
+

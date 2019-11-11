@@ -1,8 +1,16 @@
 setup.py
 ecommerce/__init__.py
+ecommerce/alembic.ini
 ecommerce/ecommerce.py
+ecommerce/migrations/README
+ecommerce/migrations/env.py
+ecommerce/migrations/env.pyc
+ecommerce/migrations/script.py.mako
+ecommerce/migrations/versions/c29e63fb989b_initial_migration.py
+ecommerce/migrations/versions/c29e63fb989b_initial_migration.pyc
 python_ecommerce.egg-info/PKG-INFO
 python_ecommerce.egg-info/SOURCES.txt
 python_ecommerce.egg-info/dependency_links.txt
+python_ecommerce.egg-info/entry_points.txt
 python_ecommerce.egg-info/requires.txt
 python_ecommerce.egg-info/top_level.txt
