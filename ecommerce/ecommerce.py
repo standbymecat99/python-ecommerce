@@ -23,13 +23,16 @@ class ECommerce:
         Base.metadata.create_all(engine)
         self.session = sessionmaker(autocommit=False, autoflush=False, bind=engine)()
 
-    def create_customer(self):
+    def create_customer(self, session=None):
+        if session is None:
+            session = self.session
+
         customer = Customer()
-        self.session.add(customer)
-        self.session.commit()
+        session.add(customer)
+        session.commit()
         return customer
 
-    def add_to_cart(self, customer, product, count):
+    def add_to_cart(self, customer, product, count, session=None):
         if not isinstance(customer, Customer):
             raise Exception('customer must be of type Customer')
         if not isinstance(product, Product):
@@ -37,7 +40,10 @@ class ECommerce:
         if not isinstance(count, int):
             raise Exception('count must be of type Integer')
 
-        cart_product = self.session.query(Cart).\
+        if session is None:
+            session = self.session
+
+        cart_product = session.query(Cart).\
             filter(Cart.customer_id==customer.id, Cart.product_id==product.id).\
             first()
 
@@ -47,23 +53,26 @@ class ECommerce:
                 product_id=product.id,
                 count=count
             )
-            self.session.add(cart_product)
+            session.add(cart_product)
         else:
             cart_product.count = cart_product.count + count
 
-        self.session.commit()
+        session.commit()
 
-    def get_cart(self, customer):
+    def get_cart(self, customer, session=None):
         if not isinstance(customer, Customer):
             raise Exception('customer must be of type Customer')
 
-        cart_products = self.session.query(Cart).\
+        if session is None:
+            session = self.session
+
+        cart_products = session.query(Cart).\
             filter(Cart.customer_id==customer.id,
                    Cart.count>0).all()
 
         return cart_products
 
-    def remove_from_cart(self, customer, product, count):
+    def remove_from_cart(self, customer, product, count, session=None):
         if not isinstance(customer, Customer):
             raise Exception('customer must be of type Customer')
         if not isinstance(product, Product):
@@ -71,22 +80,28 @@ class ECommerce:
         if not isinstance(count, int):
             raise Exception('count must be of type Integer')
 
-        cart_product = self.session.query(Cart).\
+        if session is None:
+            session = self.session
+
+        cart_product = session.query(Cart).\
             filter(Cart.customer_id==customer.id, Cart.product_id==product.id).\
             one()
 
         cart_product.count = max(0, cart_product.count - count)
-        self.session.commit()
+        session.commit()
 
-    def clear_cart(self, customer):
+    def clear_cart(self, customer, session=None):
         if not isinstance(customer, Customer):
             raise Exception('customer must be of type Customer')
 
-        cart_products = self.session.query(Cart).\
+        if session is None:
+            session = self.session
+
+        cart_products = session.query(Cart).\
             filter(Cart.customer_id==customer.id).all()
         for cart_product in cart_products:
             cart_product.count = 0
-        self.session.commit()
+        session.commit()
 
 @as_declarative()
 class Base(object):
