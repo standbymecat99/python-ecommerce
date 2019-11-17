@@ -103,6 +103,26 @@ class ECommerce:
             cart_product.count = 0
         session.commit()
 
+    def set_cart(self, customer, product, count, session=None):
+        if not isinstance(customer, Customer):
+            raise Exception('customer must be of type Customer')
+        if not isinstance(product, Product):
+            raise Exception('product must be of type Product')
+        if not isinstance(count, int):
+            raise Exception('count must be of type Integer')
+        if count < 0:
+            raise Exception('count greater than or equal to 0')
+
+        if session is None:
+            session = self.session
+
+        cart_product = session.query(Cart).\
+            filter(Cart.customer_id==customer.id, Cart.product_id==product.id).\
+            one()
+
+        cart_product.count = count
+        session.commit()
+
 @as_declarative()
 class Base(object):
     __tableprefix__ = 'python_ecommerce_'
