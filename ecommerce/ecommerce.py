@@ -1,4 +1,5 @@
 import os
+import csv
 import sqlalchemy as sa
 from sqlalchemy import create_engine, UniqueConstraint
 from sqlalchemy.sql import func
@@ -122,6 +123,21 @@ class ECommerce:
 
         cart_product.count = count
         session.commit()
+
+    def get_country_list(self, lang='en'):
+        data_dir = os.path.join(os.path.dirname(__file__), 'country_data', lang)
+        if os.path.isdir(data_dir):
+            data_file = os.path.join(data_dir, 'country.csv')
+            with open(data_file, 'r') as f:
+                country_list = []
+                reader = csv.reader(f)
+                reader.next()
+                for row in reader:
+                    country_list.append({
+                        'key': row[0],
+                        'value': row[1]
+                    })
+                return country_list
 
 @as_declarative()
 class Base(object):
