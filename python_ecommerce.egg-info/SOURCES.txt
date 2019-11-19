@@ -6,6 +6,10 @@ ecommerce/migrations/README
 ecommerce/migrations/env.py
 ecommerce/migrations/env.pyc
 ecommerce/migrations/script.py.mako
+ecommerce/migrations/versions/471106abfdfa_add_indices_to_product_and_cart.py
+ecommerce/migrations/versions/471106abfdfa_add_indices_to_product_and_cart.pyc
+ecommerce/migrations/versions/57d5acf23352_create_customer_and_cart.py
+ecommerce/migrations/versions/57d5acf23352_create_customer_and_cart.pyc
 ecommerce/migrations/versions/c29e63fb989b_initial_migration.py
 ecommerce/migrations/versions/c29e63fb989b_initial_migration.pyc
 python_ecommerce.egg-info/PKG-INFO

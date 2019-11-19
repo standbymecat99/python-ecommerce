@@ -17,7 +17,8 @@ setuptools.setup(
     ],
     install_requires=[
         "SQLAlchemy>=1.1.0",
-        "alembic>=0.8.9"
+        "alembic>=0.8.9",
+        "stripe>=2.40.0"
     ],
     entry_points={'console_scripts': ['ecommerce=ecommerce.ecommerce:main']}
  )
