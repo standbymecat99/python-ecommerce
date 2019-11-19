@@ -8,7 +8,7 @@ setuptools.setup(
     long_description="An ecommerce library for python",
     packages=setuptools.find_packages(),
     package_data={
-        'ecommerce': ['alembic.ini', 'migrations/*', 'migrations/**/*'
+        'ecommerce': ['alembic.ini', 'migrations/*', 'migrations/**/*',
                       'country_data/*', 'country_data/**/*'],
     },
     classifiers=[
