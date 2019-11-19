@@ -144,8 +144,9 @@ class Base(object):
     __tableprefix__ = 'python_ecommerce_'
 
     id = sa.Column(sa.Integer, primary_key=True)
-    created_at = sa.Column(sa.DateTime(timezone=True), server_default=func.now())
-    updated_at = sa.Column(sa.DateTime(timezone=True), onupdate=func.now())
+    created_at = sa.Column(sa.DateTime(timezone=True), default=func.now())
+    updated_at = sa.Column(sa.DateTime(timezone=True),
+                           default=func.now(), onupdate=func.now())
 
 class Product(Base):
     __tablename__ = 'python_ecommerce_product'
