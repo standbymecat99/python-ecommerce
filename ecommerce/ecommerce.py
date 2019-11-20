@@ -73,6 +73,21 @@ class ECommerce:
 
         session.commit()
 
+    def get_card_info(self, customer, session=None):
+        if not isinstance(customer, Customer):
+            raise Exception('customer must be of type Customer')
+
+        if session is None:
+            session = self.session
+
+        if customer.stripe_customer_id is None or \
+           customer.stripe_card_id is None:
+            return None
+
+        return stripe.Customer.retrieve_source(
+            customer.stripe_customer_id,
+            customer.stripe_card_id)
+
     def add_to_cart(self, customer, product, count, session=None):
         if not isinstance(customer, Customer):
             raise Exception('customer must be of type Customer')
