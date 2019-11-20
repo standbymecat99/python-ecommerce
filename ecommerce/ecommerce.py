@@ -210,8 +210,8 @@ class ECommerce:
                 filter(Product.id==cart_product.product_id).\
                 one()
 
-            product.count -= cart_product.count
-            if product.count < 0:
+            product.stock -= cart_product.count
+            if product.stock < 0:
                 raise Exception('Product is out of stock')
             total += product.price * cart_product.count
 
