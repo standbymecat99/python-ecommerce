@@ -209,9 +209,14 @@ class ECommerce:
             product = session.query(Product).\
                 filter(Product.id==cart_product.product_id).\
                 one()
+
+            product.count -= cart_product.count
+            if product.count < 0:
+                raise Exception('Product is out of stock')
+            total += product.price * cart_product.count
+
             products.append(product)
             product_count_dict[product.id] = cart_product.count
-            total += product.price * cart_product.count
 
         stripe_charge = stripe.Charge.create(
             amount=int(total * 100),
