@@ -1,5 +1,6 @@
 import os
 import csv
+import time
 import json
 import sqlalchemy as sa
 from sqlalchemy import create_engine, UniqueConstraint
@@ -258,11 +259,43 @@ class ECommerce:
             session.commit()
 
             order_products.append({
-                'product': product.id,
+                'product': product,
                 'count': product_count_dict[product.id]
             })
 
-        return order_products
+        return {'id': order.id, 'products': order_products, 'note': order.note}
+
+    def get_order(self, order_id, session=None):
+        if session is None:
+            session = self.session
+
+        order = session.query(Order).filter(Order.id==order_id).first()
+        order_products = session.query(order_product_table).filter(
+            order_product_table.c.order_id==order.id).all()
+
+        products = []
+        product_count_dict = {}
+        for product in order.products:
+            product_count_dict[product.id] = product
+        for order_product in order_products:
+            product = product_count_dict[order_product.product_id]
+            products.append({
+                'product': {
+                    'id': product.id,
+                    'name': product.name,
+                    'description': product.description,
+                    'price': str(product.price),
+                    'stock': product.stock
+                },
+                'count': order_product.count
+            })
+
+        return {
+            'id': order.id,
+            'products': products,
+            'note': order.note,
+            'created_at': time.mktime(order.created_at.timetuple())
+        }
 
 
 @as_declarative()
