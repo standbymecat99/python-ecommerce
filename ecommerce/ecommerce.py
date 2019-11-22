@@ -1,5 +1,6 @@
 import os
 import csv
+import json
 import sqlalchemy as sa
 from sqlalchemy import create_engine, UniqueConstraint
 from sqlalchemy.sql import func
@@ -193,6 +194,16 @@ class ECommerce:
                         'value': row[1]
                     })
                 return country_list
+        return []
+
+    def get_country_name_by_code(self, key, lang='en'):
+        data_dir = os.path.join(os.path.dirname(__file__), 'country_data', lang)
+        if os.path.isdir(data_dir):
+            data_file = os.path.join(data_dir, 'country.json')
+            with open(data_file, 'r') as f:
+                countries = json.loads(f.read())
+                return countries[key]
+        return ''
 
     def checkout(self, customer, session=None):
         if not isinstance(customer, Customer):
