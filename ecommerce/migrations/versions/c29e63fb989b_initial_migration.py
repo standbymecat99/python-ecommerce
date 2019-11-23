@@ -25,7 +25,8 @@ def upgrade():
         sa.Column('name', sa.String(255), nullable=False, index=True),
         sa.Column('description', sa.Text, default=''),
         sa.Column('stock', sa.Integer, default=0),
-        sa.Column('price', sa.DECIMAL(18, 2))
+        sa.Column('price', sa.DECIMAL(18, 2)),
+        mysql_default_charset='utf8'
     )
 
 

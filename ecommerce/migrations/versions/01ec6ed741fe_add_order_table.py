@@ -23,7 +23,8 @@ def upgrade():
         sa.Column('created_at', sa.DateTime),
         sa.Column('updated_at', sa.DateTime),
         sa.Column('customer_id', sa.Integer, sa.ForeignKey('python_ecommerce_customer.id')),
-        sa.Column('note', sa.Text)
+        sa.Column('note', sa.Text),
+        mysql_default_charset='utf8'
     )
     op.create_table(
         'python_ecommerce_order_product',
@@ -32,7 +33,8 @@ def upgrade():
         sa.Column('updated_at', sa.DateTime),
         sa.Column('order_id', sa.Integer, sa.ForeignKey('python_ecommerce_order.id')),
         sa.Column('product_id', sa.Integer, sa.ForeignKey('python_ecommerce_product.id')),
-        sa.Column('count', sa.Integer, default=0)
+        sa.Column('count', sa.Integer, default=0),
+        mysql_default_charset='utf8'
     )
 
 
