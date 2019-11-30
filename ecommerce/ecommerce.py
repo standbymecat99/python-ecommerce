@@ -263,7 +263,7 @@ class ECommerce:
                 'count': product_count_dict[product.id]
             })
 
-        return {'id': order.id, 'products': order_products, 'note': order.note}
+        return {'id': order.id, 'created_at': time.mktime(order.created_at.timetuple()) ,'products': order_products, 'note': order.note}
 
     def get_order(self, order_id, session=None):
         if session is None:
