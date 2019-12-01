@@ -2,6 +2,7 @@ import os
 import csv
 import time
 import json
+import math
 import sqlalchemy as sa
 from sqlalchemy import create_engine, UniqueConstraint
 from sqlalchemy.sql import func
@@ -295,6 +296,25 @@ class ECommerce:
             'products': products,
             'note': order.note,
             'created_at': time.mktime(order.created_at.timetuple())
+        }
+
+    def get_orders(self, customer_id, page=1, per_page=10, session=None):
+        if session is None:
+            session = self.session
+
+        query = session.query(Order).filter(Order.customer_id==customer_id)
+        orders = query.\
+            order_by(Order.created_at.desc()).\
+            limit(per_page).\
+            offset((page - 1) * per_page).\
+            all()
+        total = query.count()
+
+        return {
+            'page': page,
+            'total': total,
+            'total_pages': int(math.ceil(float(total) / float(per_page))),
+            'orders': [self.get_order(order.id, session) for order in orders]
         }
 
 
