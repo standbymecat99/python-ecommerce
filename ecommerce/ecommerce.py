@@ -226,7 +226,10 @@ class ECommerce:
             product.stock -= cart_product.count
             if product.stock < 0:
                 raise Exception('Product is out of stock')
-            total += product.price * cart_product.count
+            price = product.price
+            if product.sale and product.sale_price is not None:
+                price = product.sale_price
+            total += price * cart_product.count
 
             products.append(product)
             product_count_dict[product.id] = cart_product.count
