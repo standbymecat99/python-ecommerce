@@ -334,6 +334,8 @@ class Product(Base):
     description = sa.Column(sa.Text, default='')
     stock = sa.Column(sa.Integer, default=0, index=True)
     price = sa.Column(sa.DECIMAL(18, 2), index=True)
+    sale = sa.Column(sa.Boolean, index=True, default=False)
+    sale_price = sa.Column(sa.DECIMAL(18, 2), index=True)
 
 class Customer(Base):
     __tablename__ = 'python_ecommerce_customer'
