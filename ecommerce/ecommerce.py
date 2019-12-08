@@ -289,7 +289,9 @@ class ECommerce:
                     'name': product.name,
                     'description': product.description,
                     'price': str(product.price),
-                    'stock': product.stock
+                    'stock': product.stock,
+                    'sale': product.sale,
+                    'sale_price': product.sale_price
                 },
                 'count': order_product.count
             })
