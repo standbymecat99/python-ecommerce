@@ -255,11 +255,17 @@ class ECommerce:
 
         order_products = []
         for product in order.products:
+            price = product.price
+            if product.sale and product.sale_price is not None:
+                price = product.sale_price
             session.execute(
                 update(order_product_table).where(sa.and_(
                     order_product_table.c.order_id==order.id,
                     order_product_table.c.product_id==product.id)
-                ).values(count=product_count_dict[product.id]))
+                ).values(
+                    count=product_count_dict[product.id],
+                    purchase_price=price
+                ))
             session.commit()
 
             order_products.append({
@@ -291,8 +297,9 @@ class ECommerce:
                     'price': str(product.price),
                     'stock': product.stock,
                     'sale': product.sale,
-                    'sale_price': product.sale_price
+                    'sale_price': str(product.sale_price)
                 },
+                'purchase_price': str(order_product.product.price) if order_product.purchase_price is None else str(order_product.purchase_price),
                 'count': order_product.count
             })
 
@@ -372,7 +379,8 @@ class Cart(Base):
 order_product_table = sa.Table('python_ecommerce_order_product', Base.metadata,
     sa.Column('order_id', sa.Integer, sa.ForeignKey('python_ecommerce_order.id')),
     sa.Column('product_id', sa.Integer, sa.ForeignKey('python_ecommerce_product.id')),
-    sa.Column('count', sa.Integer)
+    sa.Column('count', sa.Integer),
+    sa.Column('purchase_price', sa.DECIMAL(18, 2))
 )
 
 class Order(Base):
