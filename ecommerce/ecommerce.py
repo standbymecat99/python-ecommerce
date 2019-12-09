@@ -299,7 +299,7 @@ class ECommerce:
                     'sale': product.sale,
                     'sale_price': str(product.sale_price)
                 },
-                'purchase_price': str(order_product.product.price) if order_product.purchase_price is None else str(order_product.purchase_price),
+                'purchase_price': str(product.price) if order_product.purchase_price is None else str(order_product.purchase_price),
                 'count': order_product.count
             })
 
