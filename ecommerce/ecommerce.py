@@ -99,6 +99,9 @@ class ECommerce:
         if not isinstance(count, int):
             raise Exception('count must be of type Integer')
 
+        if product.stock < count:
+            raise Exception('Product is out of stock')
+
         if session is None:
             session = self.session
 
