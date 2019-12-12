@@ -207,7 +207,8 @@ class ECommerce:
             data_file = os.path.join(data_dir, 'country.json')
             with open(data_file, 'r') as f:
                 countries = json.loads(f.read())
-                return countries[key]
+                if key in countries:
+                    return countries[key]
         return ''
 
     def checkout(self, customer, session=None):
