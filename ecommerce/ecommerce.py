@@ -117,6 +117,8 @@ class ECommerce:
             )
             session.add(cart_product)
         else:
+            if product.stock < count + cart_product.count:
+                raise Exception('Product is out of stock')
             cart_product.count = cart_product.count + count
 
         session.commit()
@@ -174,6 +176,8 @@ class ECommerce:
             raise Exception('count must be of type Integer')
         if count < 0:
             raise Exception('count greater than or equal to 0')
+        if product.stock < count:
+            raise Exception('Product is out of stock')
 
         if session is None:
             session = self.session
