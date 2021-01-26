@@ -215,7 +215,7 @@ class ECommerce:
                     return countries[key]
         return ''
 
-    def checkout(self, customer, session=None):
+    def checkout(self, customer, currency='hkd', session=None):
         if not isinstance(customer, Customer):
             raise Exception('customer must be of type Customer')
 
@@ -244,7 +244,7 @@ class ECommerce:
 
         stripe_charge = stripe.Charge.create(
             amount=int(total * 100),
-            currency="usd",
+            currency=currency,
             customer=customer.stripe_customer_id,
             source=customer.stripe_card_id)
 
