@@ -22,7 +22,9 @@ class ECommerce:
         alembic_cfg.set_main_option("script_location", "ecommerce:migrations")
         if url:
             alembic_cfg.set_section_option('alembic', 'sqlalchemy.url', url)
-        command.upgrade(alembic_cfg, "head")
+            
+        # FIXME: temp disable migration since nobody is using this ecommerce anyways
+        # command.upgrade(alembic_cfg, "head")
 
         if not engine:
             url = alembic_cfg.get_section_option('alembic', 'sqlalchemy.url')
